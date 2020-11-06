@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link rel="stylesheet" href="../../static/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../static/css/public.css"/>
+    <link rel="stylesheet" href="../../static/css/Person.css"/>
+
+</head>
+
+<body>
+<div style="height: 60px;">
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#hanbao"
+                        aria-expanded="false">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="nav-logo ">
+                    <img src="../../static/img/Animal.png"/>
+                    <p>宠物领养</p>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse" id="hanbao">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/Login/goIndex" class="active">首页</a>
+                    </li>
+                    <li>
+                        <a href="/Index/goPet">领宠</a>
+                    </li>
+                    <li>
+                        <a href="/Index/goContent">知识</a>
+                    </li>
+                    <li>
+                        <a href="/Index/goNews">新闻</a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav pull-right hidden-xs login" id="login">
+                    <li>
+                        <a href="/Login/goLogin">登录</a>
+                    </li>
+                    <li>
+                        <a href="/Login/goResign">注册</a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right own" id="own">
+                    <li class="dropdown">
+                        <a id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            ${user.umenbership}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                            <li>
+                                <span style="display:none">${user.uid}</span>
+                                <a href="/Index/goPerson/${user.uid}"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;个人设置</a>
+                            </li>
+                            <li>
+                                <a href="/Login/loginout"><span
+                                        class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="nav-tel nav navbar-nav hidden-xs hidden-sm navbar-right">
+                    <p>007-8888888</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="container person">
+    <div>
+        <ol class="breadcrumb " style="background-color: ghostwhite;">
+            <li>
+                <a href="index.html">首页</a>
+            </li>
+            <li class="active">
+                个人中心
+            </li>
+        </ol>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
+                <li>
+                    <a href="#Setting" class="nav-header collapsed" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-align-justify"></i>订单管理
+                        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                    </a>
+
+                    <ul id="Setting" class="nav nav-list secondmenu collapse" style="height: 0px;">
+                        <li>
+                            <a class="or"><i class="glyphicon glyphicon-home"></i>宠物订单</a>
+                        </li>
+                        <li>
+                            <a class="or1"><i class="glyphicon glyphicon-home"></i>转让订单</a>
+                        </li>
+                    </ul>
+                    <a href="#system" class="nav-header collapsed" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-user"></i>个人资料<span
+                            class="pull-right glyphicon glyphicon-chevron-down"></span>
+                    </a>
+
+                    <ul id="system" class="nav nav-list secondmenu collapse" style="height: 0px;">
+
+                        <li>
+                            <a class="in"><i class="glyphicon glyphicon-eye-open"></i>个人信息修改</a>
+                        </li>
+
+                        <li>
+                            <a class="password"><i class="glyphicon glyphicon-eye-open"></i>修改密码</a>
+                        </li>
+
+                    </ul>
+
+                    <a href="#pet" class="nav-header collapsed" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-cog"></i>宠物申请
+                        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul id="pet" class="nav nav-list secondmenu collapse" style="height: 0px;">
+                        <li>
+                            <a class="dy"><i class="glyphicon glyphicon-eye-open"></i>宠物信息填写</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-10">
+            <!--订单信息-->
+            <section id="order">
+                <h3 class="page-header">订单信息</h3>
+                <table class="table table-bordered">
+                    <thead>
+                    <th>编号</th>
+                    <th>宠物名称</th>
+                    <th>申请时间</th>
+                    <th>申请理由</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                    </thead>
+                    <tbody>
+                    <#list order as e>
+                    <tr>
+                        <td class="id">${e.oid}</td>
+                        <td>${e.goods.gdname}</td>
+                        <td>${e.collectiontime?string('yyyy-MM-dd')}</td>
+                        <td>${e.reason}</td>
+                        <td>${e.stutas}</td>
+                        <td>
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button class="btn btn-danger"><a href="/Order/deleteById/${e.oid}" style="color: white;">取消</a></button>&nbsp;&nbsp;
+                            <button class="btn btn-primary"><a href="/Order/OrderDetail?id=${e.oid}" style="color: white;">详情</a></button>
+                        </td>
+                    </tr>
+                    </#list>
+                    </tbody>
+                </table>
+            </section>
+            <!--订单信息-->
+            <section id="order1">
+                <h3 class="page-header">转让信息</h3>
+                <table class="table table-striped">
+                    <thead>
+                    <th>编号</th>
+                    <th>宠物名称</th>
+                    <th>申请时间</th>
+                    <th>状态</th>
+                    <th>操作</th>
+                    </thead>
+                    <tbody>
+                    <#list transfer as e>
+                    <tr>
+                        <td class="id">${e.tid}</td>
+                        <td>${e.pet.pname}</td>
+                        <td>${e.pet.ptime?string('yyyy-MM-dd')}</td>
+                        <td>${e.pet.ptatus}</td>
+                        <td>
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button class="btn btn-danger"><a href="/Order/DeleteChangeOrder/${e.tid}" style="color: white;">取消</a></button>&nbsp;&nbsp;
+                            <button class="btn btn-primary"><a href="/Order/ChangeDetail?id=${e.tid}" style="color: white;">详情</a></button>
+                        </td>
+                    </tr>
+                    </#list>
+                    </tbody>
+                </table>
+            </section>
+
+            <!--个人信息修改-->
+            <section id="info" class="personInfo" style="margin-top: 20px;">
+                <h3 class="page-header">修改信息</h3>
+                <form action="/Order/doupdate" method="POST" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="Menbership" class="col-sm-2 control-label">修改昵称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" name="Menbership" id="Menbership" value="${user.umenbership}"
+                                   placeholder="请输入昵称">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ages" class="col-sm-2 control-label">年龄</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="ages" name="ages" placeholder="请输入年龄"  value="${user.uage}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="col-sm-2 control-label">修改手机号码</label>
+                        <div class="col-sm-10">
+                            <input type="phone" class="form-control" id="phone" name="phone" placeholder="请输入手机号码"  value="${user.uphone}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address" class="col-sm-2 control-label">修改地址</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="address" name="address" placeholder="请输入地址"  value="${user.uaddress}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" name="_method" value="PUT">
+                        <button class="btn btn-primary" type="submit" style="margin-left: 140px;">确认修改</button>
+                    </div>
+                </form>
+            </section>
+            <!--密码修改-->
+            <section id="pwd" class="pwd" style="margin-top: 20px;">
+                <h4 class="page-header">修改密码</h4>
+                <form id="f" method="post" action="/Order/changepwd">
+                    <div class="form-group">
+                        <label for="Password0">旧密码</label>
+                        <input type="password" class="form-control" id="Password0" name="old" placeholder="旧密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="Password">新密码</label>
+                        <input type="password" class="form-control" id="Password" name="new1" placeholder="新密码">
+                    </div>
+                    <div class="form-group">
+                        <label for="Password1">确认密码</label>
+                        <input type="password" class="form-control" id="Password1" name="new2" placeholder="确认密码">
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">修改</button>
+                    </div>
+                </form>
+            </section>
+
+            <!--宠物动态发表-->
+            <section id="dynamic">
+                <h3 class="page-header">填写信息</h3>
+                <div class="alert alert-warning alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    这里是填写你转让宠物的信息情况提交，商家同意后你的宠物信息就会展示，店家帮你处理宠物转让信息。提交申请后你需要将宠物带到店家。
+                </div>
+                <form class="" method="post" action="/Order/fileUpload" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="title">标题</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="name">名字</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="name">
+                    </div>
+                    <div class="form-group radio">
+                        <p>性别</p>
+                        <label class="radio-inline">
+                            <input type="radio" name="sex" id="inlineRadio1" value="公"> 公
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="sex" id="inlineRadio2" value="母"> 母
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="age">年龄</label>
+                        <input type="text" class="form-control" min="1" id="age" placeholder="age" name="age">
+                    </div>
+                    <div class="form-group">
+                        <label for="addpet">类别</label>
+                        <select id="addpet" class="form-control" name="type">
+                            <#list ptype as type>
+                            <option value="${type.gtypename}">${type.gtypename}</option>
+                        </#list>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="product">宠物介绍</label>
+                        <textarea class="form-control" rows="5" name="product" id="product" placeholder="申请理由和宠物一些信息"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputFile">图片</label>
+                        <input type="file" id="exampleInputFile" multiple="multiple" name="uploadFile">
+                        <p class="help-block">一张宠物图片</p>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">提交</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</div>
+
+
+<footer style="margin-top: -50px;">
+    <address>
+        <p>宠物领养</p>
+        <p><strong>地址：</strong>湖南长沙望城区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>电话号码：</strong>007-8888888</p>
+        <h5 class="">Copyright @ 2020 qianduan.com All All</h5>
+        <h5 class=""> Reserved | 赣ICP备 13042526号</h5>
+    </address>
+</footer>
+</body>
+<script src="../../static/js/jquery-3.3.1.min.js"></script>
+<script src="../../static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="../../static/js/Person.js"></script>
+</html>
+<script>
+    var member = "${user.umenbership}";
+    console.log(member);
+    if (member == "") {
+        document.getElementById("own").style.display = "none";
+    } else {
+        document.getElementById("login").style.display = "none";
+    }
+</script>

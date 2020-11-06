@@ -1,0 +1,44 @@
+tbody tr{
+	height: 300px;
+	border: 1px saddlebrown solid;
+}
+.img img{
+	width: 100px;
+	height: 100px;
+}
+ .panel{
+	background-color: #dee1f0;
+}
+.content div{
+	width: 200px;
+	overflow: hidden;
+}
+.section-divider{
+	border-top: #497295  15px solid;
+}
+.section-divider h4{
+	text-align: center;
+	margin: 20px 0px 20px 0px;
+	
+}
+.section{
+	font-size: 15px;
+	margin: 20px 0px 20px 0px;
+	
+	
+}
+.col-md-offset-1{
+	margin-left: 12%;
+}
+.img1 img{
+	width: 200px;
+}
+.pimg img{
+	width: 100px;
+	height: 100px;
+	margin: 10px;
+	
+}
+.pimg{
+	margin-left: 150px;
+}

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="../../static/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+	<link href="../../static/css/index.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdn.bootcss.com/element-ui/2.4.0/theme-chalk/index.css">
+	<link href="../../static/css/public.css" rel="stylesheet" />
+	<title>主页</title>
+</head>
+
+<body>
+<div style="height: 60px;">
+	<nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#hanbao" aria-expanded="false">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<div class="nav-logo ">
+					<img src="../../static/img/Animal.png" />
+					<p>宠物领养</p>
+				</div>
+			</div>
+			<div class="collapse navbar-collapse" id="hanbao">
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="/Login/goIndex" class="active">首页</a>
+					</li>
+					<li>
+						<a href="/Index/goPet">领宠</a>
+					</li>
+					<li>
+						<a href="/Index/goContent">知识</a>
+					</li>
+					<li>
+						<a href="/Index/goNews">新闻</a>
+					</li>
+				</ul>
+
+				<ul class="nav navbar-nav pull-right hidden-xs login" id="login">
+					<li>
+						<a href="/Login/goLogin">登录</a>
+					</li>
+					<li>
+						<a href="/Login/goResign">注册</a>
+					</li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right own" id="own">
+					<li class="dropdown">
+						<a id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							${user.umenbership}
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="dLabel">
+							<li>
+								<a href="/Order/goPerson"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;个人设置</a>
+							</li>
+							<li>
+								<a href="/Login/loginout"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+
+				<div class="nav-tel nav navbar-nav hidden-xs hidden-sm navbar-right">
+					<p>007-8888888</p>
+				</div>
+			</div>
+		</div>
+	</nav>
+</div>
+<!--首页-->
+<section class="middle container" id="show">
+	<!--轮播图-->
+	<div class="col-md-8">
+		<div class="row">
+			<!--轮播图容器-->
+			<div class="carousel slide" data-ride="carousel" id="slideshow">
+				<ol class="carousel-indicators">
+					<li data-target="#slideshow" data-slide-to="0" class="active"></li>
+					<li data-target="#slideshow" data-slide-to="1"></li>
+					<li data-target="#slideshow" data-slide-to="3"></li>
+				</ol>
+				<!--轮播图效果-->
+				<div class="carousel-inner">
+					<div class="item active">
+						<img src="../../static/img/1.jpg">
+					</div>
+					<div class="item">
+						<div class="carousel-caption">
+							<h2>宠物之家欢迎你</h2>
+						</div>
+						<img src="../../static/img/2.jpg">
+
+					</div>
+					<div class="item">
+						<img src="../../static/img/3.jpg">
+					</div>
+				</div>
+				<a href="#slideshow" class="left carousel-control" data-slide="prev" style="border-radius: 30px;">
+					<span class="glyphicon glyphicon-chevron-left"></span>
+				</a>
+				<a href="#slideshow" class="right carousel-control" data-slide="next" style="border-radius: 30px;">
+					<span class="glyphicon glyphicon-chevron-right"></span>
+				</a>
+			</div>
+			<!--萌宠推荐-->
+			<div class="col-md-8 product" >
+				<div>
+					<p class="page-header">萌宠推荐<a href="/Index/goPet" style="float: right;">更多</a></p>
+					<div class="row">
+						<div class="col-md-6 duct"  v-for="site in list.slice(0,4)" @click="look(site.gdid)">
+							<div class="img1">
+								<img :src="site.gdimg">
+							</div>
+							<div class="con">
+								<h4>{{site.gdtitle}}</h4>
+								<p>
+									{{site.gdcontext}}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--最新新闻<-->
+			<div class="col-md-8 new">
+				<div>
+					<p class="page-header">最新新闻<a href="/Index/goNews" style="float: right;">更多</a></p>
+					<div class="row">
+						<div class="col-md-4 news" v-for="ne in news"  @click="looknew(ne.nid)">
+							<div class="tim">{{ne.ntime | dataTime}}</div>
+							<div class="tims">{{ne.ntitle}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--宠物知识-->
+	<div class="col-md-4 knownlege">
+		<div>
+			<p class="page-header">知识小贴士
+				<a href="/Index/goContent" style="float: right;">更多</a>
+			</p>
+
+			<div class="lege"  v-for="con in cont"  @click="lookcon(con.cid)">
+				<div>
+					<img :src="con.cimg" />
+				</div>
+				<div>
+					<h4 >{{con.ctitle}}</h4>
+					<span>{{con.content}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4 about">
+		<div>
+			<p class="page-header">宠物领养须知</p>
+			<div class="instructions">
+				<p>救援流浪动物是一条孤独又辛苦的路，虐待、遗弃、疾病豪天棋牌、死亡，这一切的根源都是人和宠物之间有沟通障碍。
+					所以，我们开始积极传播科学养宠文化；积极参与流浪动物公益活动，呼吁大家关注这个弱势群体！因为每一个生命都值得被尊重！
+				</p>
+				<p>我们呼吁更多的爱心人士来收养他们，宠物已经接受严格检查，没有携带任何病毒和细菌。在一定的时间我们会给他们注射疫苗，请您放心领养。</p>
+				<P ><strong>注意：</strong>为了宠物的生命安全，我们店只支持到店领养宠物，你也可以线上申请，到点直接领养带走。</P>
+			</div>
+		</div>
+	</div>
+
+</section>
+
+<footer >
+	<address>
+		<p>宠物领养</p>
+		<p><strong>地址：</strong>湖南长沙望城区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>电话号码：</strong>007-8888888</p>
+		<h5 class="">Copyright @ 2020 qianduan.com All All</h5>
+		<h5 class=""> Reserved | 赣ICP备 13042526号</h5>
+	</address>
+</footer>
+</body>
+
+<script src="../../static/js/jquery-3.3.1.min.js"></script>
+<script src="../../static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="../../static/js/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="../../static/js/index.js" type="text/javascript"  charset="UTF-8"></script>
+</html>
+<script>
+	var member = "${user.umenbership}";
+	console.log(member);
+	if(member==""){
+		document.getElementById("own").style.display="none";
+	}else {
+		document.getElementById("login").style.display="none";
+	}
+</script>

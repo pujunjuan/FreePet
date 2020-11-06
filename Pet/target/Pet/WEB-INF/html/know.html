@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<title>宠物知识</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<link rel="stylesheet" href="../../static/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+	<link href="../../static/css/public.css" rel="stylesheet" />
+	<link href="../../static/css/Pet.css" rel="stylesheet" />
+</head>
+<body>
+<div style="height: 60px;">
+	<nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#hanbao" aria-expanded="false">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<div class="nav-logo ">
+					<img src="../../static/img/Animal.png" />
+					<p>宠物领养</p>
+				</div>
+			</div>
+			<div class="collapse navbar-collapse" id="hanbao">
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="/Login/goIndex" class="active">首页</a>
+					</li>
+					<li>
+						<a href="/Index/goPet">领宠</a>
+					</li>
+					<li>
+						<a href="/Index/goContent">知识</a>
+					</li>
+					<li>
+						<a href="/Index/goNews">新闻</a>
+					</li>
+				</ul>
+
+				<ul class="nav navbar-nav pull-right hidden-xs login" id="login">
+					<li>
+						<a href="/Login/goLogin">登录</a>
+					</li>
+					<li>
+						<a href="/Login/goResign">注册</a>
+					</li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right own" id="own">
+					<li class="dropdown">
+						<a id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							${user.umenbership}
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="dLabel">
+							<li>
+								<a href="/Order/goPerson"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;个人设置</a>
+							</li>
+							<li>
+								<a href="/Login/loginout"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+
+				<div class="nav-tel nav navbar-nav hidden-xs hidden-sm navbar-right">
+					<p>007-8888888</p>
+				</div>
+			</div>
+		</div>
+	</nav>
+</div>
+
+
+<div class="container" id="know">
+	<h2 style="font-family: '楷体';"  class="header">
+		<img src="../../static/img/logo1.jpg">
+		<strong>"</strong>养宠小知识<strong>"</strong>
+	</h2>
+	<div class="row">
+		<div class="col-md-9 pet">
+			<table class="box">
+				<tr class="page-header" v-for="c in list" @click="lookcon(c.cid)">
+					<td class="picture"><img :src="c.cimg"></td>
+					<td class="context">
+						<div class="title">
+							<h3>{{c.ctitle}}</h3></div>
+						<div class="time">
+							<h4><span class="glyphicon glyphicon-time"></span>&nbsp;<span>{{c.ctime | dataTime}}</span></h4></div>
+						<div>
+							<h4>知识简介:</h4>
+							<span class="pro">{{c.content}}</span></div>
+					</td>
+				</tr>
+			</table>
+			<!-- 显示分页信息 -->
+			<div class="row">
+				<nav class=" pull-right" aria-label="Page navigation">
+					<ul class="pagination">
+						<li v-if="cur>1"><a @click="cur--,pageClick()">&laquo</a></li>
+						<li v-if="cur==1"><a class="banclick">&laquo</a></li>
+						<li v-for="index in pageIndex" v-bind:class="{ 'active': cur == index}">
+							<a @click="btnClick(index)">{{ index }}</a>
+						</li>
+						<li v-if="cur!=all"><a @click="cur++,pageClick()">&raquo</a></li>
+						<li v-if="cur == all"><a class="banclick">&raquo</a></li>
+						<li><a>共<i>{{all}}</i>条</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+		<div class="col-md-3 right">
+			<div class="known">
+				<p class="page-header">萌宠推荐
+					<a href="/Index/goPet" style="float: right;">更多</a>
+				</p>
+				<div class="page-header" v-for="c in cont.slice(0,3)" @click="look(c.gdid)">
+					<h4>{{c.gdtitle}}</h4>
+					<span class="pro">{{c.gdcontext}}</span>
+				</div>
+			</div>
+
+			<div class="our">
+				<p class="page-header">宠物新闻
+					<a href="/Index/goNews" style="float: right;">更多</a>
+				</p>
+				<div class="page-header" v-for="n in news.slice(0,4)" @click="looknew(n.nid)">
+					<h4>{{n.ntitle}}</h4>
+					<span class="pro">{{n.ncontent}}</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<footer >
+	<address>
+		<p>宠物领养</p>
+		<p><strong>地址：</strong>湖南长沙望城区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>电话号码：</strong>007-8888888</p>
+		<h5 class="">Copyright @ 2020 qianduan.com All All</h5>
+		<h5 class=""> Reserved | 赣ICP备 13042526号</h5>
+	</address>
+</footer>
+</body>
+
+<script src="../../static/js/jquery-3.3.1.min.js"></script>
+<script src="../../static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="../../static/js/vue.js"></script>
+<script src="../../static/js/axios.js"></script>
+<script src="../../static/js/Know.js" type="text/javascript" charset="UTF-8"></script>
+</html>
+<script>
+	var member = "${user.umenbership}";
+	console.log(member);
+	if(member==""){
+		document.getElementById("own").style.display="none";
+	}else {
+		document.getElementById("login").style.display="none";
+	}
+</script>

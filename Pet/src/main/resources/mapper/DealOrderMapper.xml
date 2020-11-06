@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pjj.mapper.DealOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.pjj.pojo.DealOrder" >
+    <id column="oiID" property="oiid" jdbcType="INTEGER" />
+    <result column="oID" property="oid" jdbcType="INTEGER" />
+    <result column="deal_way" property="dealWay" jdbcType="VARCHAR" />
+    <result column="deal_resulst" property="dealResulst" jdbcType="VARCHAR" />
+    <result column="dealTime" property="dealtime" jdbcType="TIMESTAMP" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    oiID, oID, deal_way, deal_resulst, dealTime, comment
+  </sql>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from deal_order
+    where oID = #{oid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from deal_order
+    where oiID = #{oiid,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.pjj.pojo.DealOrder" >
+    insert into deal_order (oiID, oID, deal_way,
+      deal_resulst, dealTime, comment
+      )
+    values (#{oiid,jdbcType=INTEGER}, #{oid,jdbcType=INTEGER}, #{dealWay,jdbcType=VARCHAR},
+      #{dealResulst,jdbcType=VARCHAR}, #{dealtime,jdbcType=TIMESTAMP}, #{comment,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pjj.pojo.DealOrder" >
+    insert into deal_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="oiid != null" >
+        oiID,
+      </if>
+      <if test="oid != null" >
+        oID,
+      </if>
+      <if test="dealWay != null" >
+        deal_way,
+      </if>
+      <if test="dealResulst != null" >
+        deal_resulst,
+      </if>
+      <if test="dealtime != null" >
+        dealTime,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="oiid != null" >
+        #{oiid,jdbcType=INTEGER},
+      </if>
+      <if test="oid != null" >
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="dealWay != null" >
+        #{dealWay,jdbcType=VARCHAR},
+      </if>
+      <if test="dealResulst != null" >
+        #{dealResulst,jdbcType=VARCHAR},
+      </if>
+      <if test="dealtime != null" >
+        #{dealtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.pjj.pojo.DealOrder" >
+    update deal_order
+    <set >
+      <if test="dealerid != null" >
+        oID = #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="dealWay != null" >
+        deal_way = #{dealWay,jdbcType=VARCHAR},
+      </if>
+      <if test="dealResulst != null" >
+        deal_resulst = #{dealResulst,jdbcType=VARCHAR},
+      </if>
+      <if test="dealtime != null" >
+        dealTime = #{dealtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where oiID = #{oiid,jdbcType=INTEGER}
+  </update>
+
+
+  <update id="updateByPrimaryKey" parameterType="com.pjj.pojo.DealOrder" >
+    update deal_order
+    set oID = #{oid,jdbcType=INTEGER},
+      deal_way = #{dealWay,jdbcType=VARCHAR},
+      deal_resulst = #{dealResulst,jdbcType=VARCHAR},
+      dealTime = #{dealtime,jdbcType=TIMESTAMP},
+      comment = #{comment,jdbcType=VARCHAR}
+    where oiID = #{oiid,jdbcType=INTEGER}
+  </update>
+</mapper>

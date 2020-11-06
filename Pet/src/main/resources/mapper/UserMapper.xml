@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pjj.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.pjj.pojo.User" >
+    <id column="uID" property="uid" jdbcType="INTEGER" />
+    <result column="uMenbership" property="umenbership" jdbcType="VARCHAR" />
+    <result column="uName" property="uname" jdbcType="VARCHAR" />
+    <result column="uSex" property="usex" jdbcType="CHAR" />
+    <result column="uAge" property="uage" jdbcType="VARCHAR" />
+    <result column="uAddress" property="uaddress" jdbcType="VARCHAR" />
+    <result column="uPhone" property="uphone" jdbcType="VARCHAR" />
+    <result column="uPassoword" property="upassoword" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    uID, uMenbership, uName, uSex, uAge, uAddress, uPhone, uPassoword
+  </sql>
+<!--id查询-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where uID = #{uid,jdbcType=INTEGER}
+  </select>
+  <!--登录查询一个用户-->
+    <select id="find" resultType="com.pjj.pojo.User" parameterType="user">
+     select
+      <include refid="Base_Column_List" />
+      from user
+      where uPhone=#{uphone} and uPassoword=#{upassoword}
+    </select>
+  <!--通过属性检查用户是否存在-->
+  <select id="findPhone" resultType="java.lang.Integer"  parameterType="user">
+    select count(*)
+    from user
+    <where>
+      <if test="umenbership != null" >
+      and  uMenbership = #{umenbership,jdbcType=VARCHAR}
+      </if>
+      <if test="uname != null" >
+        and  uName = #{uname,jdbcType=VARCHAR}
+      </if>
+      <if test="usex != null" >
+        and  uSex = #{usex,jdbcType=CHAR}
+      </if>
+      <if test="uage != null" >
+        and uAge = #{uage,jdbcType=VARCHAR}
+      </if>
+      <if test="uaddress != null" >
+        and  uAddress = #{uaddress,jdbcType=VARCHAR}
+      </if>
+      <if test="uphone != null" >
+        and uPhone = #{uphone,jdbcType=VARCHAR}
+      </if>
+      <if test="upassoword != null" >
+        and  uPassoword = #{upassoword,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <select id="BackselectUserAll" resultType="com.pjj.pojo.User">
+    select *
+    from user
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where uID = #{uid,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.pjj.pojo.User" >
+    insert into user ( uMenbership, uName,
+      uSex, uAge, uAddress, 
+      uPhone, uPassoword)
+    values ( #{umenbership,jdbcType=VARCHAR}, #{uname,jdbcType=VARCHAR},
+      #{usex,jdbcType=CHAR}, #{uage,jdbcType=VARCHAR}, #{uaddress,jdbcType=VARCHAR}, 
+      #{uphone,jdbcType=VARCHAR}, #{upassoword,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.pjj.pojo.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="umenbership != null" >
+        uMenbership,
+      </if>
+      <if test="uname != null" >
+        uName,
+      </if>
+      <if test="usex != null" >
+        uSex,
+      </if>
+      <if test="uage != null" >
+        uAge,
+      </if>
+      <if test="uaddress != null" >
+        uAddress,
+      </if>
+      <if test="uphone != null" >
+        uPhone,
+      </if>
+      <if test="upassoword != null" >
+        uPassoword,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="umenbership != null" >
+        #{umenbership,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null" >
+        #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="usex != null" >
+        #{usex,jdbcType=CHAR},
+      </if>
+      <if test="uage != null" >
+        #{uage,jdbcType=VARCHAR},
+      </if>
+      <if test="uaddress != null" >
+        #{uaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="uphone != null" >
+        #{uphone,jdbcType=VARCHAR},
+      </if>
+      <if test="upassoword != null" >
+        #{upassoword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.pjj.pojo.User" >
+    update user
+    <set >
+      <if test="umenbership != null" >
+        uMenbership = #{umenbership,jdbcType=VARCHAR},
+      </if>
+      <if test="uname != null" >
+        uName = #{uname,jdbcType=VARCHAR},
+      </if>
+      <if test="usex != null" >
+        uSex = #{usex,jdbcType=CHAR},
+      </if>
+      <if test="uage != null" >
+        uAge = #{uage,jdbcType=VARCHAR},
+      </if>
+      <if test="uaddress != null" >
+        uAddress = #{uaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="uphone != null" >
+        uPhone = #{uphone,jdbcType=VARCHAR},
+      </if>
+      <if test="upassoword != null" >
+        uPassoword = #{upassoword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uID = #{uid,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.pjj.pojo.User" >
+    update user
+    set uMenbership = #{umenbership,jdbcType=VARCHAR},
+      uName = #{uname,jdbcType=VARCHAR},
+      uSex = #{usex,jdbcType=CHAR},
+      uAge = #{uage,jdbcType=VARCHAR},
+      uAddress = #{uaddress,jdbcType=VARCHAR},
+      uPhone = #{uphone,jdbcType=VARCHAR},
+      uPassoword = #{upassoword,jdbcType=VARCHAR}
+    where uID = #{uid,jdbcType=INTEGER}
+  </update>
+</mapper>

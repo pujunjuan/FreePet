@@ -1,0 +1,32 @@
+.news{
+	background-color: white;	
+	margin-top: 20px;
+	border-radius: 30px;
+}
+.breadcrumb{
+	background-color: white;
+	font-size: 17px;
+	padding-left: 0px;
+	margin-top: 10px;
+} 
+.page-header{
+	margin-top: 0px !important;
+}
+.news .two{
+	background-image: url(../img/4.jpg);
+	background-size: cover;
+	background-position:-10px -100px;
+	background-repeat: no-repeat;
+}
+.news .two h4{
+	text-align: center;
+}
+.news .two p{
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	font-size: 15px;
+	text-indent: 2em;
+	line-height: 25px;
+	padding: 0px 10px 0px 10px;
+}

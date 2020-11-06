@@ -1,0 +1,44 @@
+body {
+	background-color: #569CB7;
+}
+.info{
+	background-color: white;
+	
+	margin-top: 20px;
+}
+.breadcrumb{
+	background-color: white;
+	font-size: 17px;
+	padding-left: 0px;
+}
+form{
+	margin: auto;
+	text-align: center;
+	font-size: 15px;
+}
+.one{
+	border: 1px solid black;
+	height: 40px;
+}
+span{
+	margin-right: 25px;
+}
+button{
+	float: right;
+}
+.pager p{
+	float: right;
+	font-size: 17px;
+	margin-right: 20px;
+}
+.two p:last-child{
+	text-indent: 2em;
+}
+.two,.three{
+	margin: 20px;
+}
+.three img{
+	height: 200px;
+	width: 300px;
+	margin: 5px;
+}

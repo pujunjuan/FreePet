@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1 , user-scalable=no">
+    <title>用户管理</title>
+    <link rel="stylesheet" href="../../static/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../static/css/PetBack.css"/>
+</head>
+<body>
+<!--导航-->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!--小屏幕导航按钮和logo-->
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="index.html" class="navbar-brand">宠物后台</a>
+        </div>
+        <!--小屏幕导航按钮和logo-->
+        <!--导航-->
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/Back/goOrder"><span class="glyphicon glyphicon-th-large"></span>&nbsp;&nbsp;订单管理</a></li>
+                <li ><a href="/Back/goBackGoods"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;宠物管理</a></li>
+                <li class="active"><a href="/Back/goBackUser"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;用户管理</a></li>
+                <li><a href="/Back/goBackContent"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;知识管理</a></li>
+                <li><a href="/Back/goBackNews"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;新闻管理</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        ${admin.AName}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dLabel">
+                        <li><a href="/Login/goIndex"><span class="glyphicon glyphicon-screenshot"></span>前往主页</a></li>
+                    </ul>
+                </li>
+                <li><a href="/Login/Backloginout"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a></li>
+            </ul>
+        </div>
+        <!--导航-->
+    </div>
+</nav>
+<!--导航-->
+
+<div class="container">
+	
+    <div class="row">
+        <div class="col-md-2">
+            <div class="list-group">
+                <a href="/Back/goBackUser" class="list-group-item active">用户管理</a>
+                <a href="" role="button"  class="list-group-item add" data-toggle="modal" data-target="#myModal">添加用户</a>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="page-header">
+                <h4>用户管理</h4>
+            </div>
+            <!--批量删除-->
+  <div class="row">
+       
+    </div>
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="/Back/goBackUser">用户列表</a>
+                </li>
+        
+                <li>
+                    <a href="" role="button" class="add" data-toggle="modal" data-target="#myModal">添加用户</a>
+                </li>
+            </ul>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>昵称</th>
+                        <th>用户名</th>
+                        <th>电话号码</th>
+                        <th>地址</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+        <!-- 显示分页信息 -->
+        <div class="row">
+            <!--分页文字信息  -->
+            <div class="col-md-6" id="page_info_area"></div>
+            <!-- 分页条信息 -->
+            <div class="col-md-6" id="page_nav_area"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加用户</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+				<label for="Menbership">昵称</label>
+				<input type="text" class="form-control" name="umenbership" id="Menbership" placeholder="请输入昵称">
+                     <span class="help-block"></span>
+                 </div>
+			
+			<div class="form-group">
+				<label for="uName" >姓名</label>
+				<input type="text" class="form-control" id="uName" placeholder="请输入姓名" name="uname">
+                <span class="help-block"></span>
+			</div>
+
+			<div class="form-group">
+				<label>性别</label>
+				<div >
+					<label class="radio-inline">
+                     <input type="radio" name="usex" id="man" value="男" style="width: 0;"> 男
+                     </label>
+					<label class="radio-inline">
+                         <input type="radio" name="usex" id="women" value="女" style="width: 0;"> 女
+                    </label>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label for="age">年龄</label>
+				<input type="text" class="form-control" id="age" name="uage" placeholder="请输入年龄">
+                <span class="help-block"></span>
+			</div>
+			
+			<div class="form-group">
+				<label for="phone" >手机号码</label>
+				<input type="tel" class="form-control" id="phone" name="uphone" placeholder="请输入手机号码">
+                <span class="help-block"></span>
+			</div>
+			
+			<div class="form-group">
+				<label for="address" >地址</label>
+				<input type="text" class="form-control" id="address" name="uaddress" placeholder="请输入地址">
+                <span class="help-block"></span>
+			</div>
+			
+			<div class="form-group">
+				<label for="password1" >密码</label>
+				<input type="password" class="form-control" name="upassoword" id="password1" placeholder="请输入密码">
+                <span class="help-block"></span>
+			</div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="user_add_btn">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--footer-->
+<footer >
+	<address>
+ 	<p>宠物领养</p>
+ 	<p><strong>地址：</strong>湖南长沙望城区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>电话号码：</strong>007-8888888</p>
+    <h5 class="">Copyright @ 2020 qianduan.com All All</h5>
+	<h5 class=""> Reserved | 赣ICP备 13042526号</h5>
+</address>
+</footer>
+<!--footer-->
+
+
+<script src="../../static/js/jquery-3.3.1.min.js"></script>
+<script src="../../static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script src="../../static/js/Chart.js"></script>
+<script src="../../static/js/script.js"></script>
+<script src="../../static/js/BackUser.js"></script>
+</body>
+</html>
+

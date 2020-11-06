@@ -1,0 +1,41 @@
+body{
+	background-image: url(../img/3.jpg);
+	background-repeat:no-repeat ;
+	background-size: cover;
+}
+*{
+	margin: 0;
+	padding: 0;
+}
+#alert{
+	display: none;
+	text-align: center;
+	font-size: 20px;
+}
+h3{
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 50px;
+	padding-top: 20px;
+}
+.form-horizontal{
+	width: 600px;
+	margin:100px auto;
+	background-color: white;
+	opacity: 0.7;
+}
+.forget{
+	margin-left: 60px;
+}
+.form-horizontal .form-group{
+	margin:0px 0px 15px 20%;
+}
+.form-group input[type="phone"]{
+	width: 250px;
+}
+.form-group input[type="password"]{
+	width: 250px;
+}
+.form-group button[type="submit"]{
+	width: 300px;
+}

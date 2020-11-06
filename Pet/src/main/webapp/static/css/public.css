@@ -1,0 +1,180 @@
+body {
+	background-color: #569CB7;
+}
+.navbar-default {
+	height: 60px;
+}
+
+.navbar-header {
+	height: 60px;
+	
+}
+
+.nav-logo {
+	display: flex;
+}
+
+.nav-logo p {
+	line-height: 60px;
+	text-align: center;
+	font-size: 20px;
+	color: #248237;
+	margin-left: 20px;
+}
+
+.nav-logo>img {
+	width: 100px;
+	height: 60px;
+	border-radius: 50%;
+}
+
+.navbar-nav li:first-child {
+	margin-left: 20px;
+}
+
+.navbar-nav li {
+	width: 90px;
+	height: 60px;
+	text-align: center;
+	font-size: 18px;
+	color: white;
+}
+
+.navbar-nav li a {
+	padding: 0;
+	line-height: 60px;
+	color: white;
+}
+
+.navbar-nav li:hover{
+	background-color: #208C5D;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	color: white;
+}
+
+.nav-tel {
+	width: 150px;
+	height: 30px;
+	margin-top: 15px;
+	margin-left: 25px;
+	border: 1px solid #025e36;
+	text-align: center;
+	font-size: 18px;
+	border-radius: 20px;
+}
+
+.nav-tel p {
+	line-height: 30px;
+	color: #35b968;
+}
+footer{
+	height: 120px;
+	width: 100%;
+	overflow: hidden;
+	margin-top: 20px;
+	background-color: #245269;
+	color: white;
+}
+footer address{
+	text-align: center;
+	padding-top: 5px;
+	
+}
+.own{
+	font-size: 15px;
+	line-height: 60px;
+	margin-left: 40px;
+}
+.own .dropdown{
+	width: initial;
+}
+.own span{
+	line-height: 30px;
+	margin-left: 10px;
+}
+
+.own a{
+	color: darkgrey;
+	text-decoration: none;
+}
+.own ul li:first-child,.own ul li{
+	margin-left: 0px;
+	height: 30px;
+	width: 160px;
+	text-align: start;
+	border-radius: 10px;
+}
+.own ul li a{
+	padding-left: 10px;
+	color: black;
+	line-height: 30px;
+	height: 30px;
+	width: 160px;
+	margin-left: 0px;
+	
+}
+.navbar-collapse.in{
+	overflow-y: initial;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a{
+	color: black;
+}
+.navbar-nav .open .dropdown-menu .dropdown-header, .navbar-nav .open .dropdown-menu > li > a{
+	padding:inherit;
+}
+
+@media only screen and (min-width:998px) and (max-width: 1248px) {
+	.pull-right {
+		float: none;
+	}
+	.nav-tel {
+		margin-left: 0;
+	}
+}
+
+@media only screen and (min-width:768px) and (max-width: 978px) {
+	.login {
+		position: absolute;
+		top: 0px;
+		left: 72%;
+	}
+	.knownlege,.about{
+		width: auto;
+	}
+}
+
+@media only screen and (max-width: 762px) {
+	.navbar-nav li:first-child {
+		margin-left: 0px;
+	}
+	.pull-left {
+		float: none;
+	}
+	.navbar-inverse .navbar-nav {
+		margin-left: 40%;
+	}
+	.navbar-inverse .navbar-nav > li > a{
+		color: black;
+	}
+
+}
+
+@media only screen and (max-width: 978px) {
+	.middle ,.knownlege,.about{
+		margin-left: 0px;
+	}
+	.navbar-default{
+		color: #000000;
+	}
+	.middle{
+		margin: 20px 0px 0px 0px;
+	}
+	.knownlege,.about{
+		width: auto;
+	}
+	.container{
+		width: auto;
+	}
+}

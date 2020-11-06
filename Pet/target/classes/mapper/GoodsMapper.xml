@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pjj.mapper.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.pjj.pojo.Goods" >
+    <id column="gdID" property="gdid" jdbcType="INTEGER" />
+    <result column="gdSex" property="gdsex" jdbcType="CHAR" />
+    <result column="gdType" property="gdtype" jdbcType="INTEGER" />
+    <result column="gdName" property="gdname" jdbcType="VARCHAR" />
+    <result column="gdContext" property="gdcontext" jdbcType="VARCHAR" />
+    <result column="gdTitle" property="gdtitle" jdbcType="VARCHAR" />
+    <result column="gdAge" property="gdage" jdbcType="VARCHAR" />
+    <result column="gdstate" property="gdstate" jdbcType="VARCHAR" />
+    <result column="gdImg" property="gdimg" jdbcType="VARCHAR" />
+    <result column="gdTime" property="gdtime" jdbcType="DATE" />
+  </resultMap>
+
+  <resultMap id="ResultMap" type="com.pjj.pojo.Goods" >
+    <id column="gdID" property="gdid" jdbcType="INTEGER" />
+    <result column="gdSex" property="gdsex" jdbcType="CHAR" />
+    <result column="gdType" property="gdtype" jdbcType="INTEGER" />
+    <result column="gdName" property="gdname" jdbcType="VARCHAR" />
+    <result column="gdContext" property="gdcontext" jdbcType="VARCHAR" />
+    <result column="gdTitle" property="gdtitle" jdbcType="VARCHAR" />
+    <result column="gdAge" property="gdage" jdbcType="VARCHAR" />
+    <result column="gdstate" property="gdstate" jdbcType="VARCHAR" />
+    <result column="gdImg" property="gdimg" jdbcType="VARCHAR" />
+    <result column="gdTime" property="gdtime" jdbcType="DATE" />
+    <association property="pettype" column="gID" javaType="petype">
+      <result column="gID" property="gid"/>
+      <result column="gTypeName" property="gtypename"/>
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+
+  <sql id="Base_Column_List" >
+    gdID, gdSex, gdType, gdName, gdContext, gdTitle, gdAge, gdstate, gdTime,gdImg
+  </sql>
+
+  <sql id="Column_List" >
+    gdID, gdSex, gdType, gdName, gdContext, gdTitle, gdAge, gdstate, gdTime,gTypeName,gdImg,gID
+  </sql>
+
+  <!--id查询连接了类别表-->
+  <select id="selectByPrimaryKey" resultMap="ResultMap" parameterType="java.lang.Integer" >
+    select
+   <include refid="Column_List"/>
+    from goods JOIN pettype ON goods.gdType=pettype.gID
+    where gdID = #{gdid,jdbcType=INTEGER}
+  </select>
+
+  <!--查询全部首页宠物-->
+    <select id="FindGoods" resultMap="ResultMap">
+    SELECT * FROM goods JOIN pettype ON goods.gdType=pettype.gID
+    WHERE gdstate="待领养"
+    ORDER BY gdTime DESC
+    </select>
+  <!--后台宠物查询所有-->
+  <select id="BackSelectGoodsAll" resultMap="ResultMap">
+    SELECT * from goods JOIN pettype ON goods.gdType=pettype.gID ORDER BY gdTime DESC
+  </select>
+  <!--后台宠物搜索-->
+    <select id="BackSelectGoods" resultMap="ResultMap">
+      SELECT * from goods JOIN pettype ON goods.gdType=pettype.gID
+      where  gdType = #{gdtype,jdbcType=INTEGER} and   gdName = #{gdname,jdbcType=VARCHAR}
+    </select>
+  <select id="SelectGoods" resultType="com.pjj.pojo.Goods">
+    select * from goods
+    where gdName = #{gdname,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from goods
+    where gdID = #{gdid,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.pjj.pojo.Goods" >
+    insert into goods (gdSex, gdType,
+      gdName, gdContext, gdTitle, 
+      gdAge, gdstate,gdImg,
+      gdTime)
+    values ( #{gdsex,jdbcType=CHAR}, #{gdtype,jdbcType=INTEGER},
+      #{gdname,jdbcType=VARCHAR}, #{gdcontext,jdbcType=VARCHAR}, #{gdtitle,jdbcType=VARCHAR}, 
+      #{gdage,jdbcType=VARCHAR}, #{gdstate,jdbcType=VARCHAR},#{gdimg,jdbcType=VARCHAR},
+      #{gdtime,jdbcType=DATE})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.pjj.pojo.Goods" >
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gdsex != null" >
+        gdSex,
+      </if>
+      <if test="gdtype != null" >
+        gdType,
+      </if>
+      <if test="gdname != null" >
+        gdName,
+      </if>
+      <if test="gdcontext != null" >
+        gdContext,
+      </if>
+      <if test="gdtitle != null" >
+        gdTitle,
+      </if>
+      <if test="gdage != null" >
+        gdAge,
+      </if>
+      <if test="gdstate != null" >
+        gdstate,
+      </if>
+      <if test="gdimg != null" >
+        gdImg,
+      </if>
+      <if test="gdtime != null" >
+        gdTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gdsex != null" >
+        #{gdsex,jdbcType=CHAR},
+      </if>
+      <if test="gdtype != null" >
+        #{gdtype,jdbcType=INTEGER},
+      </if>
+      <if test="gdname != null" >
+        #{gdname,jdbcType=VARCHAR},
+      </if>
+      <if test="gdcontext != null" >
+        #{gdcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="gdtitle != null" >
+        #{gdtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="gdage != null" >
+        #{gdage,jdbcType=VARCHAR},
+      </if>
+      <if test="gdstate != null" >
+        #{gdstate,jdbcType=VARCHAR},
+      </if>
+      <if test="gdimg != null" >
+        #{gdimg,jdbcType=VARCHAR},
+      </if>
+      <if test="gdtime != null" >
+        #{gdtime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.pjj.pojo.Goods" >
+    update goods
+    <set >
+      <if test="gdsex != null" >
+        gdSex = #{gdsex,jdbcType=CHAR},
+      </if>
+      <if test="gdtype != null" >
+        gdType = #{gdtype,jdbcType=INTEGER},
+      </if>
+      <if test="gdname != null" >
+        gdName = #{gdname,jdbcType=VARCHAR},
+      </if>
+      <if test="gdcontext != null" >
+        gdContext = #{gdcontext,jdbcType=VARCHAR},
+      </if>
+      <if test="gdtitle != null" >
+        gdTitle = #{gdtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="gdage != null" >
+        gdAge = #{gdage,jdbcType=VARCHAR},
+      </if>
+      <if test="gdstate != null" >
+        gdstate = #{gdstate,jdbcType=VARCHAR},
+      </if>
+      <if test="gdtime != null" >
+        gdTime = #{gdtime,jdbcType=DATE},
+      </if>
+    </set>
+    where gdID = #{gdid,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.pjj.pojo.Goods" >
+    update goods
+    set gdSex = #{gdsex,jdbcType=CHAR},
+      gdType = #{gdtype,jdbcType=INTEGER},
+      gdName = #{gdname,jdbcType=VARCHAR},
+      gdContext = #{gdcontext,jdbcType=VARCHAR},
+      gdTitle = #{gdtitle,jdbcType=VARCHAR},
+      gdAge = #{gdage,jdbcType=VARCHAR},
+      gdstate = #{gdstate,jdbcType=VARCHAR},
+      gdTime = #{gdtime,jdbcType=DATE}
+    where gdID = #{gdid,jdbcType=INTEGER}
+  </update>
+</mapper>

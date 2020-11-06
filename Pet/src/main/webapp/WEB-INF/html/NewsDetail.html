@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link rel="stylesheet" href="../../static/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <link href="../../static/css/public.css" rel="stylesheet"/>
+    <link href="../../static/css/newDetail.css" rel="stylesheet"/>
+    <title>新闻详情页</title>
+</head>
+<body>
+<div style="height: 60px;">
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#hanbao" aria-expanded="false">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="nav-logo ">
+                    <img src="../../static/img/Animal.png" />
+                    <p>宠物领养</p>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse" id="hanbao">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/Login/goIndex" class="active">首页</a>
+                    </li>
+                    <li>
+                        <a href="/Index/goPet">领宠</a>
+                    </li>
+                    <li>
+                        <a href="/Index/goContent">知识</a>
+                    </li>
+                    <li>
+                        <a href="/Index/goNews">新闻</a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav pull-right hidden-xs login" id="login">
+                    <li>
+                        <a href="/Login/goLogin">登录</a>
+                    </li>
+                    <li>
+                        <a href="/Login/goResign">注册</a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right own" id="own">
+                    <li class="dropdown">
+                        <a id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            ${user.umenbership}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                            <li>
+                                <a href="/Order/goPerson"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;个人设置</a>
+                            </li>
+                            <li>
+                                <a href="/Login/loginout"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="nav-tel nav navbar-nav hidden-xs hidden-sm navbar-right">
+                    <p>007-8888888</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<section class="container news">
+    <div>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Login/goIndex">首页</a>
+            </li>
+            <li>
+                <a href="/Index/goNews/">新闻</a>
+            </li>
+            <li class="active">新闻详情</li>
+        </ol>
+    </div>
+    <div class="two">
+        <h4 class="page-header">${news.ntitle}</h4>
+        <p>${news.ncontent}</p>
+    </div>
+</section>
+
+
+<footer>
+    <address>
+        <p>宠物领养</p>
+        <p><strong>地址：</strong>湖南长沙望城区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>电话号码：</strong>007-8888888</p>
+        <h5 class="">Copyright @ 2020 qianduan.com All All</h5>
+        <h5 class=""> Reserved | 赣ICP备 13042526号</h5>
+    </address>
+</footer>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="../../static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</html>
+<script>
+    var member = "${user.umenbership}";
+    console.log(member);
+    if (member == "") {
+        document.getElementById("own").style.display = "none";
+    } else {
+        document.getElementById("login").style.display = "none";
+    }
+</script>

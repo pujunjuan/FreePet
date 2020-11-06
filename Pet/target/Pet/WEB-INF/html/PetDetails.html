@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link rel="stylesheet" href="../../static/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <link href="../../static/css/public.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../static/css/Details.css"/>
+    <title>宠物详情</title>
+</head>
+<body>
+<div style="height: 60px;">
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#hanbao" aria-expanded="false">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="nav-logo ">
+                    <img src="../../static/img/Animal.png" />
+                    <p>宠物领养</p>
+                </div>
+            </div>
+            <div class="collapse navbar-collapse" id="hanbao">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/Login/goIndex" class="active">首页</a>
+                    </li>
+                    <li>
+                        <a href="/Index/goPet">领宠</a>
+                    </li>
+                    <li>
+                        <a href="/Index/goContent">知识</a>
+                    </li>
+                    <li>
+                        <a href="/Index/goNews">新闻</a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav pull-right hidden-xs login" id="login">
+                    <li>
+                        <a href="/Login/goLogin">登录</a>
+                    </li>
+                    <li>
+                        <a href="/Login/goResign">注册</a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right own" id="own">
+                    <li class="dropdown">
+                        <a id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            ${user.umenbership}
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dLabel">
+                            <li>
+                                <a href="/Order/goPerson"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;个人设置</a>
+                            </li>
+                            <li>
+                                <a href="/Login/loginout"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <div class="nav-tel nav navbar-nav hidden-xs hidden-sm navbar-right">
+                    <p>007-8888888</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+
+<div class="container info">
+    <div>
+        <ol class="breadcrumb">
+            <li><a href="/Login/goIndex">首页</a></li>
+            <li><a href="/Index/goPet">领宠</a></li>
+            <li class="active">宠物详情</li>
+        </ol>
+    </div>
+    <div>
+        <h3 class="pager">${pet.gdtitle}<p>${pet.gdstate}</p></h3>
+        <form>
+            <tr class="one">
+                <td>姓名：<span>${pet.gdname}</span></td>
+                <td>性别：<span>${pet.gdsex}</span></td>
+                <td>品种：<span>${pet.pettype.gtypename}</span></td>
+                <td>年龄：<span>${pet.gdage}</span></td>
+            </tr>
+            <tr>
+                <button type="button" id="btn_a" class="btn btn-primary" data-toggle="modal" data-target="#myModal">申请领养</button>
+            </tr>
+        </form>
+    </div>
+    <div class="two">
+        <p class="page-header">宠物简介</p>
+        <p>
+            ${pet.gdcontext}
+        </p>
+
+    </div>
+
+    <div class="three">
+        <p class="page-header">宠物相册</p>
+        <tr><img src="${pet.gdimg}"></tr>
+    </div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">申请理由</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="aid" value="${pet.gdid}"/>
+                    <div class="form-group">
+                        <label for="textarea">申请理由</label>
+                        <textarea type="text"  name="addname" id="textarea" class="form-control" placeholder="申请理由" rows="10"></textarea>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default guan" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary queding" id="apply_btn">确认申请</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <address>
+        <p>宠物领养</p>
+        <p><strong>地址：</strong>湖南长沙望城区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>电话号码：</strong>007-8888888</p>
+        <h5 class="">Copyright @ 2020 qianduan.com All All</h5>
+        <h5 class=""> Reserved | 赣ICP备 13042526号</h5>
+    </address>
+</footer>
+</body>
+<script src="../../static/js/jquery-3.3.1.min.js"></script>
+<script src="../../static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="../../static/js/vue.js"></script>
+<script src="../../static/js/Login.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</html>
+<script>
+    var member = "${user.umenbership}";
+    var apply="${pet.gdstate}";
+    if (member == "") {
+        document.getElementById("own").style.display = "none";
+
+    } else {
+        document.getElementById("login").style.display = "none";
+
+    }
+    if(apply=="已申请"){
+        document.getElementById("btn_a").style.display = "none";
+    }
+
+</script>

@@ -1,0 +1,66 @@
+
+*{
+    margin:0;
+    padding:0;
+}
+html,body{
+    height:100%;
+    background-color: gainsboro;
+}
+.container{
+    min-height:100%;
+}
+.person{
+	background-color: ghostwhite;
+	margin-top: 20px;
+}
+#order h3,#order1 h3{
+	margin: auto;
+	text-align: center;
+}
+#dynamic h3{
+	margin: auto;
+	text-align: center;
+	margin-bottom: 5px;
+}
+.personInfo h3{
+	margin: auto;
+	text-align: center;
+}
+.personInfo form{
+	padding-top: 20px;
+	margin-left: 25%;
+	
+}
+.personInfo input,.personInfo button{
+	width: 250px;
+	height: 35px;
+}
+.pwd h4{
+	margin: auto;
+	text-align: center;
+}
+.pwd input,.pwd button{
+	width: 200px;
+	height: 35px;
+}
+#f{
+	margin: 50px 0px 20px 40%;
+}
+.f{
+	margin: 50px 0px 20px 30%;
+}
+.f .form-group input,.f .form-group textarea,.f .form-group select{
+	width: 300px;
+}
+.f .form-group input[type="radio"]{
+	width: initial;
+}
+.result>div{
+	width: 100%;
+	margin: auto;
+}
+.result img{
+	height: 50px;
+	margin: 5px;
+}

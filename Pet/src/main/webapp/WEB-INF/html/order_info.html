@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>订单信息</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+    <link rel="stylesheet" href="../../static/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../static/css/public.css"/>
+    <link rel="stylesheet" href="../../static/css/Pet_details.css"/>
+    <link rel="stylesheet" href="../../static/css/oInfo.css"/>
+</head>
+<body>
+<div style="height: 60px;">
+	<nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#hanbao"
+						aria-expanded="false">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<div class="nav-logo ">
+					<img src="../../static/img/Animal.png"/>
+					<p>宠物领养</p>
+				</div>
+			</div>
+			<div class="collapse navbar-collapse" id="hanbao">
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="/Login/goIndex" class="active">首页</a>
+					</li>
+					<li>
+						<a href="/Index/goPet">领宠</a>
+					</li>
+					<li>
+						<a href="/Index/goContent">知识</a>
+					</li>
+					<li>
+						<a href="/Index/goNews">新闻</a>
+					</li>
+				</ul>
+
+				<ul class="nav navbar-nav pull-right hidden-xs login" id="login">
+					<li>
+						<a href="/Login/goLogin">登录</a>
+					</li>
+					<li>
+						<a href="/Login/goResign">注册</a>
+					</li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right own" id="own">
+					<li class="dropdown">
+						<a id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							${user.umenbership}
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu" aria-labelledby="dLabel">
+							<li>
+								<span style="display:none">${user.uid}</span>
+								<a href="/Index/goPerson/${user.uid}"><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;个人设置</a>
+							</li>
+							<li>
+								<a href="/Login/loginout"><span
+										class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+
+				<div class="nav-tel nav navbar-nav hidden-xs hidden-sm navbar-right">
+					<p>007-8888888</p>
+				</div>
+			</div>
+		</div>
+	</nav>
+</div>
+
+<div class="container info">
+    <div class="top">
+        <ol class="breadcrumb" style="background-color: ghostwhite;">
+            <li>
+                <a href="Person.html">个人中心</a>
+            </li>
+            <li>
+                <a href="Person.html">订单管理</a>
+            </li>
+            <li class="active">
+                宠物订单
+            </li>
+        </ol>
+    </div>
+    <div id="content" class="table-layout animated fadeIn">
+        <div class="tray tray-center">
+            <div class="admin-form theme-primary mw1000 center-block">
+                <div class="panel heading-border">
+                    <div class="panel-body bg-light">
+                        <div class="section-divider mt20 mb40">
+                            <h4>订单信息</h4>
+                        </div>
+                        <h4 class="page-header">订单情况</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                申请宠物名称:<span>${order.goods.gdname}</span>
+                            </div>
+                            <div class="col-md-6">
+                                申请状态:<span>${order.stutas}</span>
+                            </div>
+                            <div class="col-md-6">
+                                申请时间:<span>${order.collectiontime?string('yyyy-MM-dd HH:mm:ss')}</span>
+                            </div>
+                            <div class="col-md-6">
+                                申请理由:<span>${order.reason}</span>
+                            </div>
+                        </div>
+
+                        <h4 class="page-header">店家处理</h4>
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                店家回复:<span>${dealOrder.comment}</span>
+                            </div>
+                            <div class="col-md-6">
+                                处理时间:<span>${dealOrder.dealtime?string('yyyy-MM-dd HH:mm:ss')}</span>
+                            </div>
+                            <div class="col-md-6">
+                                处理结果:<span>${dealOrder.dealResulst}</span>
+                            </div>
+                        </div>
+
+                        <div class="panel-footer text-right">
+                            <button type="button" class="button btn btn-default"
+                                    onclick="javascript:window.history.go(-1);"> 返回
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../../static/js/jquery-3.3.1.min.js"></script>
+<script src="../../static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+</html>
+<script>
+    var member = "${user.umenbership}";
+    console.log(member);
+    if (member == "") {
+        document.getElementById("own").style.display = "none";
+    } else {
+        document.getElementById("login").style.display = "none";
+    }
+</script>

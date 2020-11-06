@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1 , user-scalable=no">
+    <title>宠物管理</title>
+    <link rel="stylesheet" href="../../static/bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../../static/css/PetBack.css"/>
+</head>
+<body>
+<!--导航-->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!--小屏幕导航按钮和logo-->
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="index.html" class="navbar-brand">宠物后台</a>
+        </div>
+        <!--小屏幕导航按钮和logo-->
+        <!--导航-->
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/Back/goOrder"><span class="glyphicon glyphicon-th-large"></span>&nbsp;&nbsp;订单管理</a>
+                </li>
+                <li><a href="/Back/goBackGoods"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;宠物管理</a></li>
+                <li><a href="/Back/goBackUser"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;用户管理</a></li>
+                <li><a href="/Back/goBackContent"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;知识管理</a></li>
+                <li><a href="/Back/goBackNews"><span class="glyphicon glyphicon-tags"></span>&nbsp;&nbsp;新闻管理</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        ${admin.AName}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dLabel">
+                        <li><a href="/Login/goIndex"><span class="glyphicon glyphicon-screenshot"></span>前往主页</a></li>
+                    </ul>
+                </li>
+                <li><a href="/Login/Backloginout"><span class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;退出</a></li>
+            </ul>
+        </div>
+        <!--导航-->
+    </div>
+</nav>
+<!--导航-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="list-group">
+                <a href="/Back/goOrder" class="list-group-item">领养申请</a>
+                <a href="/Back/goOrderHelp" class="list-group-item active">宠物转让申请</a>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="page-header">
+                <h4>订单管理</h4>
+            </div>
+            <ul class="nav nav-tabs">
+                <li>
+                    <a href="/Back/goOrder">领养申请</a>
+                </li>
+                <li class="active">
+                    <a href="/Back/goOrderHelp">宠物转让申请</a>
+                </li>
+            </ul>
+            <div>
+                <table class="table" id="OrderHelp_table">
+                    <thead>
+                    <tr>
+                        <th>订单ID</th>
+                        <th>申请者</th>
+                        <th>申请时间</th>
+                        <th>宠物名称</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- 显示分页信息 -->
+            <div class="row">
+                <!--分页文字信息  -->
+                <div class="col-md-6" id="page_info_area"></div>
+                <!-- 分页条信息 -->
+                <div class="col-md-6" id="page_nav_area"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--footer-->
+<footer>
+    <address>
+        <p>宠物领养</p>
+        <p><strong>地址：</strong>湖南长沙望城区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>电话号码：</strong>007-8888888</p>
+        <h5 class="">Copyright @ 2020 qianduan.com All All</h5>
+        <h5 class=""> Reserved | 赣ICP备 13042526号</h5>
+    </address>
+</footer>
+<!--footer-->
+
+
+<script src="../../static/js/jquery-3.3.1.min.js"></script>
+<script src="../../static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script src="../../static/js/Chart.js"></script>
+<script src="../../static/js/BackOrderHelp.js"></script>
+</body>
+</html>

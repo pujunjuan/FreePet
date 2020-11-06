@@ -1,0 +1,17 @@
+.info{
+	margin-top: 20px;
+}
+.row{
+	font-size: 16px;
+}
+.col-md-6{
+	margin: 10px 0px 10px 0px;
+}
+.pimg{
+	margin-left: 20px;
+}
+.pimg img{
+	width: 100px;
+	height: 100px;
+	margin: 10px;
+}

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pjj.mapper.NewsMapper" >
+  <resultMap id="BaseResultMap" type="com.pjj.pojo.News" >
+    <id column="nID" property="nid" jdbcType="INTEGER" />
+    <result column="nTitle" property="ntitle" jdbcType="VARCHAR" />
+    <result column="nContent" property="ncontent" jdbcType="VARCHAR" />
+    <result column="nTime" property="ntime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    nID, nTitle, nContent, nTime
+  </sql>
+<!--id查询-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from news
+    where nID = #{nid,jdbcType=INTEGER}
+  </select>
+  <!--查询首页全部新闻-->
+    <select id="FindNews" resultType="com.pjj.pojo.News">
+      SELECT * FROM news ORDER BY nTime DESC
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from news
+    where nID = #{nid,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.pjj.pojo.News" >
+    insert into news ( nTitle, nContent,
+      nTime)
+    values ( #{ntitle,jdbcType=VARCHAR}, #{ncontent,jdbcType=VARCHAR},
+      #{ntime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pjj.pojo.News" >
+    insert into news
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ntitle != null" >
+        nTitle,
+      </if>
+      <if test="ncontent != null" >
+        nContent,
+      </if>
+      <if test="ntime != null" >
+        nTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ntitle != null" >
+        #{ntitle,jdbcType=VARCHAR},
+      </if>
+      <if test="ncontent != null" >
+        #{ncontent,jdbcType=VARCHAR},
+      </if>
+      <if test="ntime != null" >
+        #{ntime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.pjj.pojo.News" >
+    update news
+    <set >
+      <if test="ntitle != null" >
+        nTitle = #{ntitle,jdbcType=VARCHAR},
+      </if>
+      <if test="ncontent != null" >
+        nContent = #{ncontent,jdbcType=VARCHAR},
+      </if>
+      <if test="ntime != null" >
+        nTime = #{ntime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where nID = #{nid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pjj.pojo.News" >
+    update news
+    set nTitle = #{ntitle,jdbcType=VARCHAR},
+      nContent = #{ncontent,jdbcType=VARCHAR},
+      nTime = #{ntime,jdbcType=TIMESTAMP}
+    where nID = #{nid,jdbcType=INTEGER}
+  </update>
+</mapper>

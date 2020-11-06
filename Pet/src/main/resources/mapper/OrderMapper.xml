@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pjj.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.pjj.pojo.Order" >
+    <id column="oID" property="oid" jdbcType="INTEGER" />
+    <result column="gdID" property="gdid" jdbcType="INTEGER" />
+    <result column="oCreater" property="ocreater" jdbcType="VARCHAR" />
+    <result column="uID" property="uid" jdbcType="INTEGER" />
+    <result column="stutas" property="stutas" jdbcType="VARCHAR" />
+    <result column="oAddress" property="oaddress" jdbcType="VARCHAR" />
+    <result column="CollectionTime" property="collectiontime" jdbcType="DATE" />
+    <result column="Reason" property="reason" jdbcType="VARCHAR" />
+    <association property="goods" column="gdID" javaType="Goods">
+      <result column="gdName" property="gdname" jdbcType="VARCHAR" />
+      <result column="gTypeName" property="pettype.gtypename"/>
+    </association>
+  </resultMap>
+<!--返回订单宠物信息-->
+  <resultMap id="ResultMap" type="com.pjj.pojo.Order" >
+    <id column="oID" property="oid" jdbcType="INTEGER" />
+    <result column="gdID" property="gdid" jdbcType="INTEGER" />
+    <result column="oCreater" property="ocreater" jdbcType="VARCHAR" />
+    <result column="uID" property="uid" jdbcType="INTEGER" />
+    <result column="stutas" property="stutas" jdbcType="VARCHAR" />
+    <result column="oAddress" property="oaddress" jdbcType="VARCHAR" />
+    <result column="CollectionTime" property="collectiontime" jdbcType="DATE" />
+    <result column="Reason" property="reason" jdbcType="VARCHAR" />
+    <association property="goods" column="gdID" javaType="Goods">
+      <result column="gdSex" property="gdsex" jdbcType="CHAR" />
+      <result column="gdType" property="gdtype" jdbcType="INTEGER" />
+      <result column="gdName" property="gdname" jdbcType="VARCHAR" />
+      <result column="gdContext" property="gdcontext" jdbcType="VARCHAR" />
+      <result column="gdTitle" property="gdtitle" jdbcType="VARCHAR" />
+      <result column="gdAge" property="gdage" jdbcType="VARCHAR" />
+      <result column="gdstate" property="gdstate" jdbcType="VARCHAR" />
+      <result column="gdImg" property="gdimg" jdbcType="VARCHAR" />
+      <result column="gdTime" property="gdtime" jdbcType="DATE" />
+      <result column="gTypeName" property="pettype.gtypename"/>
+    </association>
+  </resultMap>
+<!--返回用户信息-->
+  <resultMap id="BaseMap" type="com.pjj.pojo.Order" >
+    <id column="oID" property="oid" jdbcType="INTEGER" />
+    <result column="gdID" property="gdid" jdbcType="INTEGER" />
+    <result column="oCreater" property="ocreater" jdbcType="VARCHAR" />
+    <result column="uID" property="uid" jdbcType="INTEGER" />
+    <result column="stutas" property="stutas" jdbcType="VARCHAR" />
+    <result column="oAddress" property="oaddress" jdbcType="VARCHAR" />
+    <result column="CollectionTime" property="collectiontime" jdbcType="DATE" />
+    <result column="Reason" property="reason" jdbcType="VARCHAR" />
+    <association property="user" column="uID" javaType="user">
+      <result column="uName" property="uname" jdbcType="VARCHAR" />
+      <result column="uMenbership" property="umenbership" jdbcType="VARCHAR" />
+      <result column="uSex" property="usex" jdbcType="CHAR" />
+      <result column="uAge" property="uage" jdbcType="VARCHAR" />
+      <result column="uAddress" property="uaddress" jdbcType="VARCHAR" />
+      <result column="uPhone" property="uphone" jdbcType="VARCHAR" />
+    </association>
+    <association property="goods" column="gdID" javaType="Goods">
+      <result column="gdSex" property="gdsex" jdbcType="CHAR" />
+      <result column="gdType" property="gdtype" jdbcType="INTEGER" />
+      <result column="gdName" property="gdname" jdbcType="VARCHAR" />
+      <result column="gdContext" property="gdcontext" jdbcType="VARCHAR" />
+      <result column="gdTitle" property="gdtitle" jdbcType="VARCHAR" />
+      <result column="gdAge" property="gdage" jdbcType="VARCHAR" />
+      <result column="gdstate" property="gdstate" jdbcType="VARCHAR" />
+      <result column="gdImg" property="gdimg" jdbcType="VARCHAR" />
+      <result column="gdTime" property="gdtime" jdbcType="DATE" />
+      <result column="gTypeName" property="pettype.gtypename"/>
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    oID, gdID, oCreater, uID, stutas, oAddress, CollectionTime, Reason
+  </sql>
+<!--根据用户ID查询订单-->
+  <select id="selectByKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT * FROM `order` join goods using(gdID) WHERE uID= #{uid}
+  </select>
+  <!--根据订单ID查询订单-->
+    <select id="selectByID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+       SELECT * FROM `order` join goods using(gdID) WHERE oID= #{oid}
+    </select>
+ <!-- //查看所有申请订单-->
+    <select id="BackSelectAll" resultMap="BaseMap">
+       SELECT * FROM `order` join goods using(gdID) join user using(uID)  WHERE stutas="申请中"
+    </select>
+  <!--查询所有订单申请详情-->
+    <select id="BackselectByID" resultMap="BaseMap" parameterType="java.lang.Integer">
+       SELECT * FROM `order` join goods using(gdID) join user using(uID)  JOIN pettype ON goods.gdType=pettype.gID  WHERE oID= #{oid}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from `order`
+    where oID = #{oid,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.pjj.pojo.Order" >
+    insert into `order` (oID, gdID, oCreater,
+      uID, stutas, oAddress, 
+      CollectionTime, Reason)
+    values (#{oid,jdbcType=INTEGER}, #{gdid,jdbcType=INTEGER}, #{ocreater,jdbcType=VARCHAR}, 
+      #{uid,jdbcType=INTEGER}, #{stutas,jdbcType=VARCHAR}, #{oaddress,jdbcType=VARCHAR}, 
+      #{collectiontime,jdbcType=DATE}, #{reason,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.pjj.pojo.Order" >
+    insert into `order`
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gdid != null" >
+        gdID,
+      </if>
+      <if test="ocreater != null" >
+        oCreater,
+      </if>
+      <if test="uid != null" >
+        uID,
+      </if>
+      <if test="stutas != null" >
+        stutas,
+      </if>
+      <if test="oaddress != null" >
+        oAddress,
+      </if>
+      <if test="collectiontime != null" >
+        CollectionTime,
+      </if>
+      <if test="reason != null" >
+        Reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+
+      <if test="gdid != null" >
+        #{gdid,jdbcType=INTEGER},
+      </if>
+      <if test="ocreater != null" >
+        #{ocreater,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="stutas != null" >
+        #{stutas,jdbcType=VARCHAR},
+      </if>
+      <if test="oaddress != null" >
+        #{oaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="collectiontime != null" >
+        #{collectiontime,jdbcType=DATE},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.pjj.pojo.Order" >
+    update `order`
+    <set >
+      <if test="reason != null" >
+        oID = #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="gdid != null" >
+        gdID = #{gdid,jdbcType=INTEGER},
+      </if>
+      <if test="ocreater != null" >
+        oCreater = #{ocreater,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null" >
+        uID = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="stutas != null" >
+        stutas = #{stutas,jdbcType=VARCHAR},
+      </if>
+      <if test="oaddress != null" >
+        oAddress = #{oaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="collectiontime != null" >
+        CollectionTime = #{collectiontime,jdbcType=DATE},
+      </if>
+      <if test="reason != null" >
+        Reason = #{reason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where oID = #{oid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pjj.pojo.Order" >
+    update `order`
+    set gdID = #{gdid,jdbcType=INTEGER},
+      oCreater = #{ocreater,jdbcType=VARCHAR},
+      uID = #{uid,jdbcType=INTEGER},
+      stutas = #{stutas,jdbcType=VARCHAR},
+      oAddress = #{oaddress,jdbcType=VARCHAR},
+      CollectionTime = #{collectiontime,jdbcType=DATE},
+      Reason = #{reason,jdbcType=VARCHAR}
+    where oID = #{oid,jdbcType=INTEGER}
+  </update>
+</mapper>

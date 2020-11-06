@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pjj.mapper.PetMapper" >
+  <resultMap id="BaseResultMap" type="com.pjj.pojo.Pet" >
+    <id column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="pName" property="pname" jdbcType="VARCHAR" />
+    <result column="pSex" property="psex" jdbcType="CHAR" />
+    <result column="pAge" property="page" jdbcType="VARCHAR" />
+    <result column="pTitle" property="ptitle" jdbcType="VARCHAR" />
+    <result column="pContent" property="pcontent" jdbcType="VARCHAR" />
+    <result column="pType" property="ptype" jdbcType="VARCHAR" />
+    <result column="pManner" property="pmanner" jdbcType="VARCHAR" />
+    <result column="pTime" property="ptime" jdbcType="DATE" />
+    <result column="pTatus" property="ptatus" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="BaseResult" type="com.pjj.pojo.Pet" >
+    <id column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="pName" property="pname" jdbcType="VARCHAR" />
+    <result column="pSex" property="psex" jdbcType="CHAR" />
+    <result column="pAge" property="page" jdbcType="VARCHAR" />
+    <result column="pTitle" property="ptitle" jdbcType="VARCHAR" />
+    <result column="pContent" property="pcontent" jdbcType="VARCHAR" />
+    <result column="pType" property="ptype" jdbcType="VARCHAR" />
+    <result column="pManner" property="pmanner" jdbcType="VARCHAR" />
+    <result column="pTime" property="ptime" jdbcType="DATE" />
+    <result column="pTatus" property="ptatus" jdbcType="VARCHAR" />
+    <association property="transfer" column="tID" javaType="Transfer">
+      <result column="uID" property="uid" jdbcType="INTEGER" />
+      <result column="gdID" property="gdid" jdbcType="INTEGER" />
+      <result column="pID" property="pid" jdbcType="INTEGER" />
+    </association>
+    <association property="user" column="uID" javaType="user">
+      <result column="uName" property="uname" jdbcType="VARCHAR" />
+      <result column="uMenbership" property="umenbership" jdbcType="VARCHAR" />
+      <result column="uSex" property="usex" jdbcType="CHAR" />
+      <result column="uAge" property="uage" jdbcType="VARCHAR" />
+      <result column="uAddress" property="uaddress" jdbcType="VARCHAR" />
+      <result column="uPhone" property="uphone" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pid, pName, pSex, pAge, pTitle, pContent, pType, pManner, pTime, pTatus
+  </sql>
+<!--id查询数据-->
+  <select id="selectByPrimaryKey" resultMap="BaseResult" parameterType="java.lang.Integer" >
+    select * from transfer join pet using (pID) join user using (uID)
+    where pid = #{pid,jdbcType=INTEGER}
+  </select>
+<!--查询最新插入的数据-->
+  <select id="selectNew" resultType="com.pjj.pojo.Pet">
+   select pid from pet
+   ORDER BY pid DESC LIMIT 0,1
+  </select>
+
+  <!--后台查询全部订单-->
+    <select id="BackSelectAll" resultMap="BaseResult">
+      select * from transfer join pet using (pID) join user using (uID) where pTatus="申请中"
+    </select>
+
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pet
+    where pid = #{pid,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insert" parameterType="com.pjj.pojo.Pet" >
+    insert into pet ( pName, pSex,
+      pAge, pTitle, pContent, 
+      pType, pManner, pTime, 
+      pTatus)
+    values ( #{pname,jdbcType=VARCHAR}, #{psex,jdbcType=CHAR},
+      #{page,jdbcType=VARCHAR}, #{ptitle,jdbcType=VARCHAR}, #{pcontent,jdbcType=VARCHAR}, 
+      #{ptype,jdbcType=VARCHAR}, #{pmanner,jdbcType=VARCHAR}, #{ptime,jdbcType=DATE}, 
+      #{ptatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.pjj.pojo.Pet" >
+    insert into pet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="pname != null" >
+        pName,
+      </if>
+      <if test="psex != null" >
+        pSex,
+      </if>
+      <if test="page != null" >
+        pAge,
+      </if>
+      <if test="ptitle != null" >
+        pTitle,
+      </if>
+      <if test="pcontent != null" >
+        pContent,
+      </if>
+      <if test="ptype != null" >
+        pType,
+      </if>
+      <if test="pmanner != null" >
+        pManner,
+      </if>
+      <if test="ptime != null" >
+        pTime,
+      </if>
+      <if test="ptatus != null" >
+        pTatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="pname != null" >
+        #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="psex != null" >
+        #{psex,jdbcType=CHAR},
+      </if>
+      <if test="page != null" >
+        #{page,jdbcType=VARCHAR},
+      </if>
+      <if test="ptitle != null" >
+        #{ptitle,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null" >
+        #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="ptype != null" >
+        #{ptype,jdbcType=VARCHAR},
+      </if>
+      <if test="pmanner != null" >
+        #{pmanner,jdbcType=VARCHAR},
+      </if>
+      <if test="ptime != null" >
+        #{ptime,jdbcType=DATE},
+      </if>
+      <if test="ptatus != null" >
+        #{ptatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.pjj.pojo.Pet" >
+    update pet
+    <set >
+      <if test="pname != null" >
+        pName = #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="psex != null" >
+        pSex = #{psex,jdbcType=CHAR},
+      </if>
+      <if test="page != null" >
+        pAge = #{page,jdbcType=VARCHAR},
+      </if>
+      <if test="ptitle != null" >
+        pTitle = #{ptitle,jdbcType=VARCHAR},
+      </if>
+      <if test="pcontent != null" >
+        pContent = #{pcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="ptype != null" >
+        pType = #{ptype,jdbcType=VARCHAR},
+      </if>
+      <if test="pmanner != null" >
+        pManner = #{pmanner,jdbcType=VARCHAR},
+      </if>
+      <if test="ptime != null" >
+        pTime = #{ptime,jdbcType=DATE},
+      </if>
+      <if test="ptatus != null" >
+        pTatus = #{ptatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pjj.pojo.Pet" >
+    update pet
+    set pName = #{pname,jdbcType=VARCHAR},
+      pSex = #{psex,jdbcType=CHAR},
+      pAge = #{page,jdbcType=VARCHAR},
+      pTitle = #{ptitle,jdbcType=VARCHAR},
+      pContent = #{pcontent,jdbcType=VARCHAR},
+      pType = #{ptype,jdbcType=VARCHAR},
+      pManner = #{pmanner,jdbcType=VARCHAR},
+      pTime = #{ptime,jdbcType=DATE},
+      pTatus = #{ptatus,jdbcType=VARCHAR}
+    where pid = #{pid,jdbcType=INTEGER}
+  </update>
+</mapper>

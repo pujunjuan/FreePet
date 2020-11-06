@@ -1,0 +1,36 @@
+body{
+   font-family: 'Microsoft YaHei', sans-serif;
+
+}
+.page-header{
+margin-top: 0px;
+}
+.form{
+	margin: 10px auto;
+}
+.f{
+	margin-left: 25%;
+}
+.form-group input,.form-group textarea,.f button{
+	width: 350px;
+}
+#addpet {
+	width: 350px;
+}
+.form-group input[type="radio"]{
+	width:auto;
+}
+
+footer{
+	height: 120px;
+	width: 100%;
+	overflow: hidden;
+	margin-top: 20px;
+	background-color: #245269;
+	color: white;
+}
+footer address{
+	text-align: center;
+	padding-top: 5px;
+	
+}
